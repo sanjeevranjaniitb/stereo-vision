@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StereoVision 3D — Building AI for the 3D World</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- Ambient Background -->
+<div class="ambient-bg">
+    <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-brand">⬡ StereoVision 3D</div>
+    <div class="nav-links">
+        <a href="#pipeline">Pipeline</a>
+        <a href="#demo">Demo</a>
+        <a href="#triangulation">Triangulation</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#attention">Attention</a>
+    </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge fade-up"><span class="dot"></span> Computer Vision × Depth Estimation</div>
+        <h1 class="fade-up">
+            <span class="gradient-text">Stereo Vision</span><br>
+            Building AI for the<br>
+            <span class="gradient-text-2">3D World</span>
+        </h1>
+        <p class="hero-sub fade-up">
+            From rigid geometric kernels to latent optimisation — explore how modern stereo
+            models learn the underlying structure of reality for embodied AI.
+        </p>
+        <div class="hero-equation fade-up">Z = (b × f) / d</div>
+        <div class="hero-cta fade-up">
+            <a href="#demo" class="btn btn-primary">Launch Interactive Demo</a>
+            <a href="#pipeline" class="btn btn-outline">Explore the Pipeline</a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ STATS ═══════════════ -->
+<section class="section">
+    <div class="stats-bar fade-up">
+        <div class="stat-item">
+            <div class="stat-value" data-target="60" data-suffix="+ FPS">0</div>
+            <div class="stat-label">Real-Time Inference</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" data-target="4" data-suffix="D">0</div>
+            <div class="stat-label">Correlation Volume</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" data-target="0" data-suffix="">Zero-Shot</div>
+            <div class="stat-label">Generalisation</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" data-target="3" data-suffix="D">0</div>
+            <div class="stat-label">Dense Point Clouds</div>
+        </div>
+    </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════════ PIPELINE ═══════════════ -->
+<section class="section" id="pipeline">
+    <div class="section-label fade-up">01 — The Modern Stereo Pipeline</div>
+    <div class="section-title fade-up">From Pixels to 3D Understanding</div>
+    <div class="section-desc fade-up">
+        The paradigm shift from handcrafted geometry to latent optimisation.
+        We aren't just matching pixels anymore — we're learning the structure of reality.
+    </div>
+
+    <div class="pipeline-grid">
+        <div class="card pipeline-card fade-up">
+            <span class="step-num">01</span>
+            <div class="card-icon">🔮</div>
+            <h3>Global Feature Encoding</h3>
+            <p>Twins-ViT extracts high-dimensional tokens, capturing long-range dependencies that local CNNs miss. This replaces the archaic fixed-window feature extraction.</p>
+        </div>
+        <div class="card pipeline-card fade-up">
+            <span class="step-num">02</span>
+            <div class="card-icon">🌐</div>
+            <h3>All-Pairs Correlation</h3>
+            <p>We compute a 4D correlation volume of all pixel pairs along the epipolar line, eliminating the "search window" constraint of legacy stereo methods.</p>
+        </div>
+        <div class="card pipeline-card fade-up">
+            <span class="step-num">03</span>
+            <div class="card-icon">🔄</div>
+            <h3>Iterative Refinement</h3>
+            <p>A ConvGRU "looks up" features from the correlation volume based on current d<sub>k</sub>, recursively refining: d<sub>k+1</sub> = d<sub>k</sub> + Δd. This mimics human visual convergence.</p>
+        </div>
+        <div class="card pipeline-card fade-up">
+            <span class="step-num">04</span>
+            <div class="card-icon">🧠</div>
+            <h3>Semantic Hallucination</h3>
+            <p>Using learned world priors to predict depth in occluded, textureless, and specular regions — where classical geometry fails. A prerequisite for robust indoor robotics.</p>
+        </div>
+    </div>
+
+    <div class="math-block fade-up" style="margin-top: 32px;">
+        <strong style="color: #a29bfe;">Iterative Update Rule:</strong><br>
+        h<sub>k</sub> = ConvGRU(h<sub>k-1</sub>, [corr(d<sub>k</sub>), d<sub>k</sub>, context])<br>
+        Δd = Head(h<sub>k</sub>)<br>
+        d<sub>k+1</sub> = d<sub>k</sub> + Δd
+    </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════════ INTERACTIVE DEMO ═══════════════ -->
+<section class="section" id="demo">
+    <div class="section-label fade-up">02 — Interactive Stereo Demo</div>
+    <div class="section-title fade-up">See Depth Emerge from Stereo Pairs</div>
+    <div class="section-desc fade-up">
+        Upload an image or use a procedural sample. The backend computes SGBM disparity,
+        depth maps, and reconstructs a 3D point cloud you can explore.
+    </div>
+
+    <div class="demo-container fade-up">
+        <div>
+            <div class="result-card" style="min-height: 300px;">
+                <div class="label">Input Image (Procedural)</div>
+                <img id="auto-preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Input">
+            </div>
+        </div>
+
+        <div class="demo-results" id="demo-results">
+            <div class="result-card">
+                <div class="label">Left View</div>
+                <img id="img-left" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Left">
+            </div>
+            <div class="result-card">
+                <div class="label">Right View</div>
+                <img id="img-right" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Right">
+            </div>
+            <div class="result-card" style="grid-column: 1 / -1;">
+                <div class="label" style="color: #00cec9;">Disparity Map (SGBM + WLS)</div>
+                <img id="img-disparity" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Disparity">
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-panel fade-up">
+        <div class="control-group">
+            <label>Stereo Shift (px)</label>
+            <input type="range" id="shift" min="10" max="60" value="30"
+                   oninput="updateSlider('shift')">
+            <div class="value" id="shift-val">30</div>
+        </div>
+        <div class="control-group">
+            <label>Num Disparities</label>
+            <input type="range" id="num-disp" min="16" max="256" step="16" value="128"
+                   oninput="updateSlider('num-disp')">
+            <div class="value" id="num-disp-val">128</div>
+        </div>
+        <div class="control-group">
+            <label>Block Size</label>
+            <input type="range" id="block-size" min="3" max="21" step="2" value="9"
+                   oninput="updateSlider('block-size')">
+            <div class="value" id="block-size-val">9</div>
+        </div>
+        <div class="control-group">
+            <button class="btn btn-primary" onclick="processImage()" style="width: 100%;">
+                ⚡ Compute Stereo
+            </button>
+        </div>
+    </div>
+
+    <div class="loader" id="process-loader">
+        <div class="spinner"></div>
+        <span>Computing disparity & reconstructing 3D point cloud...</span>
+    </div>
+
+    <!-- 3D Viewer -->
+    <div style="margin-top: 32px;">
+        <div class="section-label fade-up">3D Point Cloud Reconstruction</div>
+        <p class="section-desc fade-up" style="margin-bottom: 20px;">
+            Explore the reconstructed 3D scene. Drag to orbit, scroll to zoom.
+        </p>
+        <div class="viewer-3d fade-up" id="viewer-3d">
+            <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-secondary);font-size:0.9rem;">
+                Process an image above to see the 3D reconstruction
+            </div>
+            <div class="viewer-controls">
+                <button id="btn-rotate">⟳ Auto-Rotate</button>
+                <button id="btn-reset">↺ Reset View</button>
+                <button id="btn-size-up">● Larger Points</button>
+                <button id="btn-size-down">· Smaller Points</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="math-block fade-up" style="margin-top: 24px;">
+        <strong style="color: #a29bfe;">SGBM Cost Aggregation:</strong><br>
+        E(d) = Σ<sub>p</sub> [ C(p, d<sub>p</sub>) + Σ<sub>q∈N(p)</sub> P₁·𝟙(|d<sub>p</sub>−d<sub>q</sub>|=1) + P₂·𝟙(|d<sub>p</sub>−d<sub>q</sub>|>1) ]
+    </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════════ TRIANGULATION ═══════════════ -->
+<section class="section" id="triangulation">
+    <div class="section-label fade-up">03 — Triangulation Playground</div>
+    <div class="section-title fade-up">The Immutable Physics: Z = (b × f) / d</div>
+    <div class="section-desc fade-up">
+        The fundamental triangulation equation is immutable. Adjust baseline, focal length,
+        and disparity to see how depth changes in real-time.
+    </div>
+
+    <div class="tri-playground fade-up">
+        <div class="tri-visual">
+            <canvas id="tri-canvas"></canvas>
+            <div class="tri-formula">Z = (b × f) / d</div>
+            <div class="tri-result" id="tri-depth-val">2.80m</div>
+        </div>
+        <div class="tri-controls card">
+            <h3 style="margin-bottom: 24px;">Adjust Parameters</h3>
+            <div class="control-group">
+                <label>Baseline (b) — Camera Separation</label>
+                <input type="range" id="tri-baseline" min="0.05" max="0.5" step="0.01" value="0.12">
+                <div class="value" id="tri-baseline-val">0.12</div>
+            </div>
+            <div class="control-group">
+                <label>Focal Length (f) — Lens Property</label>
+                <input type="range" id="tri-focal" min="200" max="1500" step="10" value="700">
+                <div class="value" id="tri-focal-val">700</div>
+            </div>
+            <div class="control-group">
+                <label>Disparity (d) — Pixel Shift</label>
+                <input type="range" id="tri-disparity" min="1" max="128" step="1" value="30">
+                <div class="value" id="tri-disparity-val">30</div>
+            </div>
+
+            <div class="math-block" style="margin-top: 24px; font-size: 0.8rem;">
+                <strong style="color: #fd79a8;">Insight:</strong> As disparity → 0, depth → ∞.<br>
+                Objects far away have near-zero disparity between left and right views.
+                This is why stereo struggles at long range — the signal vanishes.
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════════ ARCHITECTURE EVOLUTION ═══════════════ -->
+<section class="section" id="architecture">
+    <div class="section-label fade-up">04 — Architecture Evolution</div>
+    <div class="section-title fade-up">From 3D Convolutions to Iterative Refinement</div>
+    <div class="section-desc fade-up">
+        The journey from computationally expensive fixed cost volumes to
+        elegant recurrent architectures that mimic human visual convergence.
+    </div>
+
+    <div class="timeline fade-up">
+        <div class="timeline-item">
+            <div class="era">2018 — Legacy Era</div>
+            <h3>PSMNet — Pyramid Stereo Matching</h3>
+            <p>
+                3D convolutions over a fixed 4D cost volume. Computationally expensive,
+                lacks inductive bias for out-of-distribution depth ranges.
+                The "brute force" approach to stereo matching.
+            </p>
+            <div class="tech-tags">
+                <span class="tech-tag">3D Conv</span>
+                <span class="tech-tag">Fixed Cost Volume</span>
+                <span class="tech-tag">SPP Module</span>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="era">2020 — The RAFT Revolution</div>
+            <h3>RAFT-Stereo — Recurrent All-Pairs Field Transforms</h3>
+            <p>
+                Introduced iterative refinement via ConvGRU. The model "converges" on disparity
+                like the human visual system: d<sub>k+1</sub> = d<sub>k</sub> + Δd.
+                Correlation lookup replaces exhaustive 3D convolution.
+            </p>
+            <div class="tech-tags">
+                <span class="tech-tag">ConvGRU</span>
+                <span class="tech-tag">Correlation Lookup</span>
+                <span class="tech-tag">Iterative Refinement</span>
+                <span class="tech-tag">Multi-Scale</span>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="era">2023 — Foundation Models</div>
+            <h3>Stereo Foundation Models (CREStereo, UniMatch)</h3>
+            <p>
+                Twins-ViT for global feature encoding. Cross-attention enforces the uniqueness
+                constraint along epipolar lines. Zero-shot generalisation across domains.
+                Semantic hallucination fills occluded regions.
+            </p>
+            <div class="tech-tags">
+                <span class="tech-tag">Twins-ViT</span>
+                <span class="tech-tag">Cross-Attention</span>
+                <span class="tech-tag">Zero-Shot</span>
+                <span class="tech-tag">60+ FPS</span>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="era">2024+ — Embodied AI</div>
+            <h3>Vision-Language-Action Integration</h3>
+            <p>
+                Dense 3D priors fed directly into VLA tokens. The LLM backbone "perceives"
+                physical distance as a first-class citizen in the action loop.
+                Depth becomes a survival metric, not just a geometric task.
+            </p>
+            <div class="tech-tags">
+                <span class="tech-tag">VLA Tokens</span>
+                <span class="tech-tag">World Models</span>
+                <span class="tech-tag">Action-Space Grounding</span>
+                <span class="tech-tag">Embodied AI</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════════ CROSS-ATTENTION ═══════════════ -->
+<section class="section" id="attention">
+    <div class="section-label fade-up">05 — Cross-Attention Visualisation</div>
+    <div class="section-title fade-up">Stereo as a Sequence-to-Sequence Problem</div>
+    <div class="section-desc fade-up">
+        Cross-attention enforces the uniqueness constraint — each pixel in the left image
+        attends to its correspondence along the epipolar line in the right image.
+    </div>
+
+    <div class="math-block fade-up">
+        <strong style="color: #a29bfe;">Cross-Attention Mechanism:</strong><br>
+        Attention(Q<sub>L</sub>, K<sub>R</sub>, V<sub>R</sub>) = Softmax( (Q<sub>L</sub> · K<sub>R</sub><sup>T</sup>) / √d<sub>k</sub> ) · V<sub>R</sub><br><br>
+        <span style="color: #888; font-size: 0.8rem;">
+            Q<sub>L</sub> = queries from left image features &nbsp;|&nbsp;
+            K<sub>R</sub>, V<sub>R</sub> = keys/values from right image features
+        </span>
+    </div>
+
+    <div class="attention-grid fade-up" style="margin-top: 32px;">
+        <div class="attention-canvas-wrap">
+            <h4>Query Activation Map (Left Image)</h4>
+            <canvas id="attn-canvas-1"></canvas>
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px;">
+                Each cell represents a feature token. Brighter = higher activation.
+                The dashed pink line shows the epipolar constraint.
+            </p>
+        </div>
+        <div class="attention-canvas-wrap">
+            <h4>Attention Weights (Softmax Output)</h4>
+            <canvas id="attn-canvas-2"></canvas>
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px;">
+                The attention "spotlight" moves along the epipolar line,
+                finding the best correspondence in the right image.
+            </p>
+        </div>
+    </div>
+
+    <div class="card fade-up" style="margin-top: 32px;">
+        <h3 style="margin-bottom: 12px;">Why Cross-Attention Matters for Stereo</h3>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+            Classical stereo matching uses a fixed search window along the epipolar line.
+            Cross-attention replaces this with a <strong style="color: var(--accent2);">learned, differentiable matching</strong>
+            that can handle textureless regions, specularities, and occlusions.
+            The softmax normalisation enforces a soft uniqueness constraint — each query
+            pixel "chooses" its best match, enabling the model to <strong style="color: var(--accent);">hallucinate</strong>
+            depth in regions where classical geometry fails entirely.
+            This is the bridge from stereo matching to <strong style="color: var(--accent3);">world understanding</strong>.
+        </p>
+    </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════════ VLA BRIDGE ═══════════════ -->
+<section class="section">
+    <div class="section-label fade-up">06 — The Bridge to Embodied AI</div>
+    <div class="section-title fade-up">From Depth Maps to Action Tokens</div>
+
+    <div class="pipeline-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card pipeline-card fade-up">
+            <div class="card-icon" style="background: rgba(108, 92, 231, 0.15);">🎯</div>
+            <h3>Semantic Hallucination</h3>
+            <p>Learned world priors predict depth in occluded regions — glass, shadows, specularities. Where geometry fails, semantics prevail.</p>
+        </div>
+        <div class="card pipeline-card fade-up">
+            <div class="card-icon" style="background: rgba(0, 206, 201, 0.15);">🌍</div>
+            <h3>Zero-Shot Generalisation</h3>
+            <p>Deploy on factory floors with zero fine-tuning. Foundation models generalise across sensor noise, lighting, and domain shifts.</p>
+        </div>
+        <div class="card pipeline-card fade-up">
+            <div class="card-icon" style="background: rgba(253, 121, 168, 0.15);">⚡</div>
+            <h3>Action-Space Grounding</h3>
+            <p>60+ FPS enables dense 3D priors fed directly into VLA tokens. The LLM backbone perceives physical distance as a first-class citizen.</p>
+        </div>
+    </div>
+
+    <div class="math-block fade-up" style="margin-top: 32px;">
+        <strong style="color: #fd79a8;">VLA Token Integration:</strong><br>
+        token<sub>action</sub> = f(token<sub>vision</sub>, token<sub>language</sub>, token<sub>depth</sub>)<br>
+        <span style="color: #888; font-size: 0.8rem;">
+            Dense depth priors become first-class inputs to the action prediction head
+        </span>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p style="margin-bottom: 8px;">
+        <strong style="background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            StereoVision 3D
+        </strong>
+        — Building AI for the 3D World
+    </p>
+    <p>Interactive demo exploring modern stereo depth estimation for embodied AI</p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="/static/js/main.js"></script>
+
+</body>
+</html>

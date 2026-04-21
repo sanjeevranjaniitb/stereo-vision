@@ -5,7 +5,7 @@
 ![img_1.png](img_1.png)
 ![img.png](img.png)
 
-An interactive, visually stunning demo application that explores the full depth of modern stereo vision: from the immutable physics of triangulation to the frontier of Vision-Language-Action models. Built for engineers, researchers, and anyone who wants to understand how machines perceive the 3D world.
+This demo application that explores the full depth of modern stereo vision: from the immutable physics of triangulation to the frontier of Vision-Language-Action models. Built for engineers, researchers, and anyone who wants to understand how machines perceive the 3D world.
 
 ---
 
@@ -261,5 +261,3 @@ Input Image
 5. Vaswani et al., *"Attention Is All You Need"*, NeurIPS 2017
 
 ---
-
-*Built as a companion demo for the LinkedIn post: Stereo Vision — Building AI for the 3D World*

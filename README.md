@@ -2,6 +2,9 @@
 
 > **From rigid geometric kernels to latent optimisation — we aren't just matching pixels anymore; we are learning the underlying structure of reality.**
 
+![img_1.png](img_1.png)
+![img.png](img.png)
+
 An interactive, visually stunning demo application that explores the full depth of modern stereo vision: from the immutable physics of triangulation to the frontier of Vision-Language-Action models. Built for engineers, researchers, and anyone who wants to understand how machines perceive the 3D world.
 
 ---

@@ -1,0 +1,35 @@
+# Web API
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+
+# Settings & .env loading (pydantic-settings + dotenv source)
+pydantic>=2.7.0
+pydantic-settings>=2.2.0
+python-dotenv>=1.0.0
+
+# LangChain: core types, OpenAI/Azure embeddings, BM25, Chroma store, text splitting
+langchain-core>=0.3.0
+langchain-openai>=0.2.0
+langchain-community>=0.3.0
+langchain-chroma>=0.1.0
+langchain-text-splitters>=0.3.0
+langchain-pinecone>=0.2.0
+
+# Pinecone Inference API (embeddings when EMBEDDING_PROVIDER=pinecone)
+pinecone>=5.0.0
+
+# Chroma client (bootstrap) + BM25 lexical leg
+chromadb>=0.5.0
+rank-bm25>=0.2.2
+
+# Chat completions: OpenAI + Azure OpenAI (structured_synthesizer)
+openai>=1.40.0
+httpx>=0.27.0
+
+# Local hash embeddings (numpy)
+numpy>=1.26.0
+
+# KB file ingestion (PDF / Word)
+pypdf>=5.0.0
+python-docx>=1.1.0

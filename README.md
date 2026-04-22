@@ -1,4 +1,4 @@
-# StereoVision 3D — Building AI for the 3D World
+# StereoVision — Building AI for the 3D World
 
 > **From rigid geometric kernels to latent optimisation — we aren't just matching pixels anymore; we are learning the underlying structure of reality.**
 
@@ -29,7 +29,7 @@ Open **http://localhost:5555** in your browser.
 
 ---
 
-## The Theory — Grounded
+## The Theory
 
 ### 1. The Immutable Physics: Triangulation
 
@@ -224,20 +224,6 @@ Input Image
             |
             └── JSON response -> Three.js renderer
 ```
-
-### Frontend Sections
-
-| Section | Maps to LinkedIn Post Section |
-|---------|-------------------------------|
-| Hero + Stats | Title + key metrics |
-| Pipeline Cards | Paradigm Shift |
-| Interactive Demo | Hands-on stereo processing |
-| Triangulation Playground | Z = (b*f)/d |
-| Architecture Timeline | PSMNet -> RAFT-Stereo -> Foundation Models |
-| Cross-Attention Viz | The Math of Cross-Attention |
-| VLA Bridge | Vision-Language-Action |
-
----
 
 ## Technical Notes
 
